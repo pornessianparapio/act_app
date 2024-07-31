@@ -8,3 +8,6 @@ def get_ip_address():
     finally:
         s.close()
     return ip_address
+
+if __name__ == "__main__":
+    print(get_ip_address())

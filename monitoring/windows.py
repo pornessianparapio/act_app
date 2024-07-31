@@ -3,6 +3,7 @@ import win32api
 import win32gui
 import win32process
 import wmi
+from typing import Optional
 
 def get_app_path(hwnd) -> Optional[str]:
     path = None
