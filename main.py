@@ -9,6 +9,7 @@ if __name__ == "__main__":
     login = LoginWindow()
     if login.exec_() == QDialog.Accepted:
         employee_id = login.get_employee_id()
+        print(employee_id)
         window = MainWindow(employee_id)
         window.show()
 
