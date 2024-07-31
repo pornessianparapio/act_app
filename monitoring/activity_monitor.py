@@ -54,10 +54,10 @@ class ActivityMonitor:
                     FROM Activity
                     WHERE employee_id = ? AND activity_name = ? AND app_name = ?
                 ''', (self.employee_id, activity_name, app_name))
-                result = cursor.fetchone()
+                results = cursor.fetchone()
 
-                if result:
-                    activity_id, no_of_times_app_opened = result
+                if results:
+                    activity_id, no_of_times_app_opened = results
                     # Increment the number of times the app has been opened
                     cursor.execute('''
                         UPDATE Activity
