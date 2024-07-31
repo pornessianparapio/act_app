@@ -1,7 +1,7 @@
+# login_window.py
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QDesktopWidget
 from utils.api import login_api
 from ui.styles import dark_style
-
 
 class LoginWindow(QDialog):
     def __init__(self):
