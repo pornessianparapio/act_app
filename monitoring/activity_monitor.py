@@ -1,34 +1,26 @@
+# activity_monitor.py
 from datetime import datetime
 import time
 import sqlite3
 from monitoring.lib import get_current_window
 from utils.helpers import get_ip_address
 import os
+import threading
 
 class ActivityMonitor:
     def __init__(self, employee_id):
         self.running = False
         self.employee_id = employee_id
-        self.db_path = os.path.join( "activity_monitor.db")
-        self.conn = sqlite3.connect("activity_monitor.db")
-        # self.platform = sys.platform
+        self.db_path = os.path.join("activity_monitor.db")
         self.current_activity = None
         self.current_time_entry_id = None
 
-    # def get_current_window(self):
-    #     if self.platform.startswith("linux"):
-    #         return linux.get_current_window()
-    #     elif self.platform == "darwin":
-    #         return macos.get_current_window(strategy="jxa")
-    #     elif self.platform in ["win32", "cygwin"]:
-    #         return windows.get_current_window()
-    #     else:
-    #         return {"app": "unknown", "title": "unknown"}
-
     def start_monitoring(self):
-        cursor = self.conn.cursor()
+        conn = sqlite3.connect(self.db_path, check_same_thread=False)
+        cursor = conn.cursor()
+        self.running = True
 
-        while True:
+        while self.running:
             current_window = get_current_window()
             activity_name = current_window["title"]
             app_name = current_window["app"]
@@ -37,16 +29,14 @@ class ActivityMonitor:
             # Check if the activity has changed
             if self.current_activity != (activity_name, app_name):
                 end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                print('inside first if')
 
                 if self.current_time_entry_id:
-                    print('inside second if')
                     cursor.execute('''
                         UPDATE TimeEntry
                         SET end_time = ?, final_end_time = ?, minutes = (julianday(?) - julianday(start_time)) * 1440
                         WHERE id = ?
                     ''', (end_time, end_time, end_time, self.current_time_entry_id))
-                    self.conn.commit()
+                    conn.commit()
 
                 start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 cursor.execute('''
@@ -54,38 +44,62 @@ class ActivityMonitor:
                     VALUES (?, ?, ?, ?, ?)
                 ''', (start_time, start_time, end_time, end_time, 0))
                 self.current_time_entry_id = cursor.lastrowid
-                self.conn.commit()
+                conn.commit()
 
+                # Check if activity already exists
                 cursor.execute('''
-                    INSERT INTO Activity (employee_id, activity_name, app_name, no_of_times_app_opened, ip_address, time_entry_id)
-                    VALUES (?, ?, ?, ?, ?, ?)
-                ''', (self.employee_id, activity_name, app_name, 1, ip_address, self.current_time_entry_id))
-                self.conn.commit()
-                print('commited')
+                    SELECT id FROM Activity
+                    WHERE employee_id = ? AND activity_name = ? AND app_name = ?
+                ''', (self.employee_id, activity_name, app_name))
+                activity_row = cursor.fetchone()
 
+                if activity_row:
+                    cursor.execute('''
+                        UPDATE Activity
+                        SET no_of_times_app_opened = no_of_times_app_opened + 1,
+                            ip_address = ?
+                        WHERE id = ?
+                    ''', (ip_address, activity_row[0]))
+                else:
+                    cursor.execute('''
+                        INSERT INTO Activity (employee_id, activity_name, app_name, no_of_times_app_opened, ip_address, time_entry_id)
+                        VALUES (?, ?, ?, ?, ?, ?)
+                    ''', (self.employee_id, activity_name, app_name, 1, ip_address, self.current_time_entry_id))
+
+                conn.commit()
                 self.current_activity = (activity_name, app_name)
             else:
-                print('same app visited')
                 cursor.execute('''
                     UPDATE Activity
                     SET no_of_times_app_opened = no_of_times_app_opened + 1
                     WHERE employee_id = ? AND activity_name = ? AND app_name = ?
                 ''', (self.employee_id, activity_name, app_name))
-                self.conn.commit()
+                conn.commit()
 
+            time.sleep(60)  # Adding sleep to reduce CPU usage
+
+        conn.close()
+
+    def start(self):
+        self.monitoring_thread = threading.Thread(target=self.start_monitoring)
+
+        self.monitoring_thread.start()
 
 
     def stop(self):
         self.running = False
+        self.monitoring_thread.join()
 
-        conn = sqlite3.connect('activity_monitor.db')
+        conn = sqlite3.connect(self.db_path, check_same_thread=False)
         cursor = conn.cursor()
+        end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        cursor.execute('''
-            UPDATE TimeEntry
-            SET end_time = datetime('now'), final_end_time = datetime('now'), minutes = (strftime('%s', 'now') - strftime('%s', start_time)) / 60
-            WHERE employee_id = ? AND end_time IS NULL
-        ''', (self.employee_id,))
+        if self.current_time_entry_id:
+            cursor.execute('''
+                UPDATE TimeEntry
+                SET end_time = ?, final_end_time = ?, minutes = (julianday(?) - julianday(start_time)) * 1440
+                WHERE id = ?
+            ''', (end_time, end_time, end_time, self.current_time_entry_id))
+            conn.commit()
 
-        conn.commit()
         conn.close()

@@ -13,24 +13,29 @@ def initialize_db():
                             password TEXT,
                             employee_id TEXT)''')
 
-        cursor.execute('''CREATE TABLE IF NOT EXISTS TimeEntry (
-                            id INTEGER PRIMARY KEY AUTOINCREMENT,
-                            first_start_time TEXT,
-                            start_time TEXT,
-                            end_time TEXT,
-                            final_end_time TEXT,
-                            minutes INTEGER)''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS TimeEntry (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                first_start_time TEXT,
+                start_time TEXT,
+                end_time TEXT,
+                final_end_time TEXT,
+                minutes REAL
+            )
+            ''')
 
-        cursor.execute('''CREATE TABLE IF NOT EXISTS Activity (
-                            id INTEGER PRIMARY KEY AUTOINCREMENT,
-                            employee_id TEXT,
-                            activity_name TEXT,
-                            app_name TEXT,
-                            no_of_times_app_opened INTEGER,
-                            ip_address TEXT,
-                            time_entry_id INTEGER,
-                            FOREIGN KEY(employee_id) REFERENCES User(employee_id),
-                            FOREIGN KEY(time_entry_id) REFERENCES TimeEntry(id))''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS Activity (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                employee_id TEXT,
+                activity_name TEXT,
+                app_name TEXT,
+                no_of_times_app_opened INTEGER,
+                ip_address TEXT,
+                time_entry_id INTEGER,
+                UNIQUE(employee_id, activity_name, app_name) -- Ensure no duplicate activities
+            )
+            ''')
 
         conn.commit()
         conn.close()
