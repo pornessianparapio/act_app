@@ -27,7 +27,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(container)
 
     def start_monitoring(self):
-        self.monitor.start()
+        self.monitor.start_monitoring()
 
     def stop_monitoring(self):
         self.monitor.stop()

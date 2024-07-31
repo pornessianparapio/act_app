@@ -9,12 +9,25 @@ def create_local_database():
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
+
     # Create User table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS User (
             email TEXT PRIMARY KEY,
             password TEXT NOT NULL,
             employee_id TEXT NOT NULL
+        )
+    ''')
+
+    # Create Time_entry table
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS Time_entry (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            first_start_time TEXT NOT NULL,
+            start_time TEXT NOT NULL,
+            end_time TEXT NOT NULL,
+            final_end_time TEXT NOT NULL,
+            minutes INTEGER NOT NULL
         )
     ''')
 
@@ -29,18 +42,6 @@ def create_local_database():
             ip_address TEXT NOT NULL,
             time_entry_id INTEGER NOT NULL,
             FOREIGN KEY (time_entry_id) REFERENCES Time_entry (id)
-        )
-    ''')
-
-    # Create Time_entry table
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS Time_entry (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            first_start_time TEXT NOT NULL,
-            start_time TEXT NOT NULL,
-            end_time TEXT NOT NULL,
-            final_end_time TEXT NOT NULL,
-            minutes INTEGER NOT NULL
         )
     ''')
 
