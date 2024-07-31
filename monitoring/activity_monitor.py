@@ -3,6 +3,7 @@ import sqlite3
 import os
 from monitoring.lib import get_current_window
 from utils.helpers import get_ip_address
+import threading
 
 class ActivityMonitor:
     def __init__(self, employee_id):
@@ -12,11 +13,13 @@ class ActivityMonitor:
         self.conn = sqlite3.connect(self.db_path)
         self.current_activity = None
         self.current_time_entry_id = None
+        self.monitoring_thread = None
 
-    def start(self):
+    def start_monitoring(self):
         cursor = self.conn.cursor()
+        self.running = True
 
-        while True:
+        while self.running:
             current_window = get_current_window()
             activity_name = current_window["title"]
             app_name = current_window["app"]
@@ -74,18 +77,26 @@ class ActivityMonitor:
             else:
                 print('Same app visited, no increment in count.')
 
+    def start(self):
+        self.monitoring_thread = threading.Thread(target=self.start_monitoring)
+        print(self.monitoring_thread)
+
+        self.monitoring_thread.start()
 
     def stop(self):
         self.running = False
+        self.monitoring_thread.join()
 
-        conn = sqlite3.connect('activity_monitor.db')
+        conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
+        end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        cursor.execute('''
-            UPDATE TimeEntry
-            SET end_time = datetime('now'), final_end_time = datetime('now'), minutes = (strftime('%s', 'now') - strftime('%s', start_time)) / 60
-            WHERE employee_id = ? AND end_time IS NULL
-        ''', (self.employee_id,))
+        if self.current_time_entry_id:
+            cursor.execute('''
+                UPDATE TimeEntry
+                SET end_time = ?, final_end_time = ?, minutes = (julianday(?) - julianday(start_time)) * 1440
+                WHERE id = ?
+            ''', (end_time, end_time, end_time, self.current_time_entry_id))
+            conn.commit()
 
-        conn.commit()
         conn.close()
