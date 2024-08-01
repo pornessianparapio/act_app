@@ -40,6 +40,7 @@ class MainWindow(QMainWindow):
     def start_monitoring(self):
         if not self.monitoring_thread:
             self.monitoring_thread = MonitoringThread(self.monitor)
+            print(f'thread start {self.monitoring_thread}')
             self.monitoring_thread.start()
 
     def stop_monitoring(self):
