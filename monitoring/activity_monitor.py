@@ -28,7 +28,7 @@ class ActivityMonitor:
             # Check if the activity has changed
             if self.current_activity != (activity_name, app_name):
                 end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                print('Activity changed, handling new activity.')
+                # print('Activity changed, handling new activity.')
 
                 # End the previous time entry if it exists
                 if self.current_time_entry_id:
@@ -75,17 +75,19 @@ class ActivityMonitor:
                 self.current_activity = (activity_name, app_name)
                 print('Activity recorded and committed.')
             else:
-                print('Same app visited, no increment in count.')
+                # print('Same app visited, no increment in count.')
+                pass
 
-    def start(self):
-        self.monitoring_thread = threading.Thread(target=self.start_monitoring)
-        print(self.monitoring_thread)
-
-        self.monitoring_thread.start()
+    # def start(self):
+    #     self.monitoring_thread = threading.Thread(target=self.start_monitoring)
+    #     print(self.monitoring_thread)
+    #
+    #     self.monitoring_thread.start()
 
     def stop(self):
         self.running = False
-        self.monitoring_thread.join()
+        # print(self.monitoring_thread)
+        # self.monitoring_thread.join()
 
         conn = sqlite3.connect(self.db_path,check_same_thread=False)
         cursor = conn.cursor()
