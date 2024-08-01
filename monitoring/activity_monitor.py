@@ -10,7 +10,7 @@ class ActivityMonitor:
         self.running = False
         self.employee_id = employee_id
         self.db_path = os.path.join("activity_monitor.db")
-        self.conn = sqlite3.connect(self.db_path)
+        self.conn = sqlite3.connect(self.db_path,check_same_thread=False)
         self.current_activity = None
         self.current_time_entry_id = None
         self.monitoring_thread = None
@@ -87,7 +87,7 @@ class ActivityMonitor:
         self.running = False
         self.monitoring_thread.join()
 
-        conn = sqlite3.connect(self.db_path)
+        conn = sqlite3.connect(self.db_path,check_same_thread=False)
         cursor = conn.cursor()
         end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
