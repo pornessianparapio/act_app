@@ -33,10 +33,14 @@ c = wmi.WMI()
 def get_app_name_wmi(hwnd) -> Optional[str]:
     name = None
     _, pid = win32process.GetWindowThreadProcessId(hwnd)
-    for p in c.query("SELECT Name FROM Win32_Process WHERE ProcessId = %s" % str(pid)):
-        name = p.Name
-        break
-    return name
+    try:
+        for p in c.query("SELECT Name FROM Win32_Process WHERE ProcessId = %s" % str(pid)):
+            name = p.Name
+            break
+        return name
+    except Exception as e:
+        print(e)
+
 
 def get_app_path_wmi(hwnd) -> Optional[str]:
     path = None

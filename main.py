@@ -6,11 +6,16 @@ from ui.main_window import MainWindow
 if __name__ == "__main__":
     app = QApplication(sys.argv)
 
-    login = LoginWindow()
-    if login.exec_() == QDialog.Accepted:
-        employee_id = login.get_employee_id()
-        print(employee_id)
-        window = MainWindow(employee_id)
-        window.show()
-
-    sys.exit(app.exec_())
+    try:
+        login = LoginWindow()
+        if login.exec_() == QDialog.Accepted:
+            employee_id = login.get_employee_id()
+            print(employee_id)
+            window = MainWindow(employee_id)
+            window.show()
+    except Exception as e:
+        print(f'couldnt open login window cuz: {e}')
+    try:
+        sys.exit(app.exec_())
+    except Exception as e:
+        print(f'thrown after in the end {e}')

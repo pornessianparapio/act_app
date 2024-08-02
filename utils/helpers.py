@@ -6,7 +6,7 @@ def get_ip_address():
         s.connect(("8.8.8.8", 80))
         ip_address = s.getsockname()[0]
     finally:
-        s.close())
+        s.close()
     return ip_address
 
 if __name__ == "__main__":

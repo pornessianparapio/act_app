@@ -1,3 +1,4 @@
+
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QDesktopWidget
 from utils.api import login_api
 from ui.styles import dark_style
@@ -41,8 +42,6 @@ class LoginWindow(QDialog):
         # Check if the email and password already exist in the User table
         cursor.execute("SELECT email, password,employee_id FROM User WHERE email=? AND password=?", (email, password))
         result = cursor.fetchone()
-
-
         if result:
             # If email and password already exist, skip the login process
             self.employee_id = result[2]
@@ -86,8 +85,6 @@ class LoginWindow(QDialog):
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
-
-
 
 
 # def login(self):
