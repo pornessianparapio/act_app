@@ -1,0 +1,38 @@
+ERROR:root:Error in monitoring thread
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 23, in run
+    self.monitor.start()
+    ^^^^^^^^^^^^^^^^^^
+AttributeError: 'ActivityMonitor' object has no attribute 'start'
+ERROR:root:Error in monitoring thread
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 23, in run
+    self.monitor.start_monitoring()
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 82, in start_monitoring
+    if self.has_been_called["stop"]:
+       ~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'stop'
+ERROR:root:Error in monitoring thread
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 23, in run
+    self.monitor.start_monitoring()
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 83, in start_monitoring
+    if self.has_been_called["stop"]:
+       ~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'stop'
+ERROR:root:Error in monitoring thread
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 23, in run
+    self.monitor.start_monitoring()
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 83, in start_monitoring
+    if self.has_been_called["stop"]:
+       ~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'stop'
+ERROR:root:Error in monitoring thread
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 23, in run
+    self.monitor.start_monitoring()
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 81, in start_monitoring
+    if self.has_been_called["stop"]:
+       ~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'stop'
