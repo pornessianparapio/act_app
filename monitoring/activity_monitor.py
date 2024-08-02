@@ -4,13 +4,13 @@ import os
 from monitoring.lib import get_current_window
 from utils.helpers import get_ip_address
 import threading
-
+running = True
 
 class StopMonitoringException(Exception):
     pass
+
 class ActivityMonitor:
     def __init__(self, employee_id):
-        self.running = False
         self.employee_id = employee_id
         self.db_path = os.path.join("activity_monitor.db")
         self.conn = sqlite3.connect(self.db_path,check_same_thread=False)
@@ -20,12 +20,12 @@ class ActivityMonitor:
         self.stopped = False
         self.has_been_called={}
 
-
     def start_monitoring(self):
         cursor = self.conn.cursor()
-        self.running = True
         try:
-            while self.running:
+            print("out",running)
+            while running == True:
+                print("in", running)
                 current_window = get_current_window()
                 activity_name = current_window["title"]
                 app_name = current_window["app"]
@@ -79,9 +79,9 @@ class ActivityMonitor:
 
                     self.conn.commit()
                     self.current_activity = (activity_name, app_name)
-                    print(self.has_been_called)
-                    if self.has_been_called["stop"]:
-                        break
+                    # print(self.has_been_called)
+                    # if self.has_been_called["stop"]:
+                    #     break
 
         except StopMonitoringException :
             print("Monitoring stopped due to exception.")
@@ -95,7 +95,7 @@ class ActivityMonitor:
     #     self.monitoring_thread.start()
 
     def stop(self):
-        self.running = False
+        running = False
         self.has_been_called["stop"] = True
 
 
