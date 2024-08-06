@@ -4,35 +4,45 @@ from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot
 from monitoring.activity_monitor import ActivityMonitor  # Ensure this class is implemented correctly
 from ui.styles import dark_style  # Ensure dark_style is defined
 import logging
+import sys
+import traceback
 from .login_window import LoginWindow
 
 # Set up logging
-logging.basicConfig(filename='app.log', level=logging.ERROR)
+logging.basicConfig(filename='app.log', level=logging.ERROR, format='%(asctime)s %(levelname)s:%(message)s')
+
+def handle_exception(exc_type, exc_value, exc_traceback):
+    if issubclass(exc_type, KeyboardInterrupt):
+        sys.__excepthook__(exc_type, exc_value, exc_traceback)
+        return
+    logging.error("Uncaught exception", exc_info=(exc_type, exc_value, exc_traceback))
+    QMessageBox.critical(None, "An error occurred", "An unexpected error occurred. Please check the log file for details.")
+
+sys.excepthook = handle_exception
 
 class MonitoringThread(QThread):
     stop_signal = pyqtSignal()
+    error_signal = pyqtSignal(str)
 
     def __init__(self, monitor):
         super().__init__()
         self.monitor = monitor
         self._is_running = True
-        self.stop_signal.connect(self.stop)
+        self.stop_signal.connect(self.stop_monitoring)
 
     def run(self):
         try:
-            self.monitor.start_monitoring()
+            self.monitor.start_monitoring(self._is_running)
         except Exception as e:
             logging.error("Error in monitoring thread", exc_info=True)
             self._is_running = False
+            self.error_signal.emit(str(e))
             self.stop_signal.emit()
 
     @pyqtSlot()
-    def stop(self):
+    def stop_monitoring(self):
         self.monitor.stop()
         self._is_running = False
-
-    def stop_monitoring(self):
-        self.stop_signal.emit()
 
 class MainWindow(QMainWindow):
     def __init__(self, employee_id):
@@ -80,7 +90,7 @@ class MainWindow(QMainWindow):
         msg_box.exec_()
 
     def start_monitoring(self):
-        if not self.monitoring_thread:
+        if not self.monitoring_thread or not self.monitoring_thread.isRunning():
             self.monitoring_thread = MonitoringThread(self.monitor)
             self.monitoring_thread.start()
             self.start_button.setEnabled(False)
@@ -90,29 +100,33 @@ class MainWindow(QMainWindow):
     def stop_monitoring(self):
         if self.monitoring_thread:
             self.monitoring_thread.stop_monitoring()
+            print('ateempting thread stop')
             self.monitoring_thread.quit()
-            self.monitoring_thread.wait()
+            print('thread quit')
+            # self.monitoring_thread.wait()
+            print('thread wait cancelled')
             self.monitoring_thread = None
+            print('monitoring thread closed')
             self.start_button.setEnabled(True)
+            print('start_button enabled')
             self.stop_button.setEnabled(False)
+            print('stop_button disabled')
             self.show_alert("Monitoring stopped successfully.", "Stop Monitoring")
 
     def logout(self):
         try:
             self.stop_monitoring()  # Stop monitoring before logging out
         except Exception as e:
-            print(f'thrown while stop monitoring {e}')
-        print('Logging out...')
-        self.show_alert("You've been logged out!.", "Logged Out")
+            logging.error("Error during logout", exc_info=True)
+        logging.info('Logging out...')
+        self.show_alert("You've been logged out!", "Logged Out")
         self.close()  # Close the main window
         self.show_login_window()
-
 
     def show_login_window(self):
         login_window = LoginWindow()
         if login_window.exec_() == QDialog.Accepted:
             employee_id = login_window.get_employee_id()
-
             self.__init__(employee_id)  # Reinitialize MainWindow with the new employee ID
             self.show()
 
@@ -126,3 +140,15 @@ class MainWindow(QMainWindow):
         if self.monitoring_thread and self.monitoring_thread.isRunning():
             self.stop_monitoring()
         event.accept()
+
+
+
+
+# if __name__ == "__main__":
+#     import sys
+#     from PyQt5.QtWidgets import QApplication
+#     app = QApplication(sys.argv)
+#     employee_id = "test_employee"  # Replace with actual login process to get employee ID
+#     window = MainWindow(employee_id)
+#     window.show()
+#     sys.exit(app.exec_())

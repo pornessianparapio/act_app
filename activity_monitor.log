@@ -1,0 +1,116 @@
+2024-08-05 14:56:25,653 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\login_window.py", line 52, in login
+    response = login_api(email, password)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\utils\api.py", line 8, in login_api
+    return {"success": True, "employee_id": data["id"]}
+                                            ~~~~^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+2024-08-05 16:50:40,547 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\login_window.py", line 52, in login
+    response = login_api(email, password)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\utils\api.py", line 8, in login_api
+    return {"success": True, "employee_id": data["id"]}
+                                            ~~~~^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+2024-08-05 16:59:58,336 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\login_window.py", line 52, in login
+    response = login_api(email, password)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\utils\api.py", line 8, in login_api
+    return {"success": True, "employee_id": data["id"]}
+                                            ~~~~^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+2024-08-05 17:11:42,799 ERROR:Error in start_monitoring
+Traceback (most recent call last):
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3322, in execute_sql
+    cursor.execute(sql, params or ())
+sqlite3.IntegrityError: NOT NULL constraint failed: activity.employee_id
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 67, in start_monitoring
+    Activity.create(
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 6741, in create
+    inst.save(force_insert=True)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 6951, in save
+    pk = self.insert(**field_dict).execute()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2036, in inner
+    return method(self, database, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2107, in execute
+    return self._execute(database)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2912, in _execute
+    return super(Insert, self)._execute(database)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2625, in _execute
+    cursor = database.execute(self)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3330, in execute
+    return self.execute_sql(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3320, in execute_sql
+    with __exception_wrapper__:
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3088, in __exit__
+    reraise(new_type, new_type(exc_value, *exc_args), traceback)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 196, in reraise
+    raise value.with_traceback(tb)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3322, in execute_sql
+    cursor.execute(sql, params or ())
+peewee.IntegrityError: NOT NULL constraint failed: activity.employee_id
+2024-08-05 17:11:42,822 ERROR:Error in monitoring thread
+Traceback (most recent call last):
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3322, in execute_sql
+    cursor.execute(sql, params or ())
+sqlite3.IntegrityError: NOT NULL constraint failed: activity.employee_id
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 67, in start_monitoring
+    Activity.create(
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 6741, in create
+    inst.save(force_insert=True)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 6951, in save
+    pk = self.insert(**field_dict).execute()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2036, in inner
+    return method(self, database, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2107, in execute
+    return self._execute(database)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2912, in _execute
+    return super(Insert, self)._execute(database)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2625, in _execute
+    cursor = database.execute(self)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3330, in execute
+    return self.execute_sql(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3320, in execute_sql
+    with __exception_wrapper__:
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3088, in __exit__
+    reraise(new_type, new_type(exc_value, *exc_args), traceback)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 196, in reraise
+    raise value.with_traceback(tb)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3322, in execute_sql
+    cursor.execute(sql, params or ())
+peewee.IntegrityError: NOT NULL constraint failed: activity.employee_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 35, in run
+    self.monitor.start_monitoring(self._is_running)
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 80, in start_monitoring
+    raise StopMonitoringException from e
+monitoring.activity_monitor.StopMonitoringException
