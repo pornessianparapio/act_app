@@ -16,7 +16,87 @@ ERROR:root:Error in monitoring thread
 Traceback (most recent call last):
   File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 23, in run
     self.monitor.start_monitoring()
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 83,
+       ~~~~~~~~~~~~~~~~~~~~^^^^^^^^ in start_monitoring
+    if self.has_been_called["stop"]:
+KeyError: 'stop'
+ERROR:root:Error in monitoring thread
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 23, in run
+    self.monitor.start_monitoring()
   File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 83, in start_monitoring
     if self.has_been_called["stop"]:
        ~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 KeyError: 'stop'
+ERROR:root:Error in monitoring thread
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 23, in run
+    self.monitor.start_monitoring()
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 81, in start_monitoring
+    if self.has_been_called["stop"]:
+       ~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'stop'
+2024-08-02 12:55:06,610 ERROR:Error in monitoring thread
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 35, in run
+    self.monitor.start_monitoring()
+TypeError: ActivityMonitor.start_monitoring() missing 1 required positional argument: 'running'
+2024-08-02 12:55:19,914 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 101, in stop_monitoring
+    self.monitoring_thread.stop_monitoring()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MonitoringThread' object has no attribute 'stop_monitoring'
+2024-08-02 12:56:31,107 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 101, in stop_monitoring
+    self.monitoring_thread.stop_monitoring()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MonitoringThread' object has no attribute 'stop_monitoring'
+2024-08-02 12:56:36,028 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 134, in closeEvent
+    self.stop_monitoring()
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 101, in stop_monitoring
+    self.monitoring_thread.stop_monitoring()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MonitoringThread' object has no attribute 'stop_monitoring'
+2024-08-02 12:59:39,315 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 101, in stop_monitoring
+    self.monitoring_thread.stop_monitoring()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MonitoringThread' object has no attribute 'stop_monitoring'
+2024-08-02 12:59:44,507 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 101, in stop_monitoring
+    self.monitoring_thread.stop_monitoring()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MonitoringThread' object has no attribute 'stop_monitoring'
+2024-08-02 12:59:49,538 ERROR:Error during logout
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 111, in logout
+    self.stop_monitoring()  # Stop monitoring before logging out
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 101, in stop_monitoring
+    self.monitoring_thread.stop_monitoring()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MonitoringThread' object has no attribute 'stop_monitoring'
+2024-08-02 12:59:50,351 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 134, in closeEvent
+    self.stop_monitoring()
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 101, in stop_monitoring
+    self.monitoring_thread.stop_monitoring()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MonitoringThread' object has no attribute 'stop_monitoring'
+2024-08-02 13:03:55,619 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 93, in start_monitoring
+    self.monitoring_thread = MonitoringThread(self.monitor)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 30, in __init__
+    self.stop_signal.connect(self.stop)
+                             ^^^^^^^^^
+AttributeError: 'MonitoringThread' object has no attribute 'stop'
+

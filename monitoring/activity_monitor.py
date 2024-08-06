@@ -1,131 +1,99 @@
 from datetime import datetime
 import sqlite3
 import os
+import logging
 from monitoring.lib import get_current_window
 from utils.helpers import get_ip_address
-import threading
+from init_db import db, TimeEntry, Activity, User
 
+# Set up logging
+logging.basicConfig(filename='activity_monitor.log', level=logging.ERROR, format='%(asctime)s %(levelname)s:%(message)s')
 
 class StopMonitoringException(Exception):
     pass
+
 class ActivityMonitor:
     def __init__(self, employee_id):
-        self.running = False
         self.employee_id = employee_id
-        self.db_path = os.path.join("activity_monitor.db")
-        self.conn = sqlite3.connect(self.db_path,check_same_thread=False)
         self.current_activity = None
         self.current_time_entry_id = None
-        self.monitoring_thread = None
-        self.stopped = False
-        self.has_been_called={}
 
-
-    def start_monitoring(self):
-        cursor = self.conn.cursor()
-        self.running = True
-        try:
-            while self.running:
-                current_window = get_current_window()
-                activity_name = current_window["title"]
-                app_name = current_window["app"]
-                ip_address = get_ip_address()
-
-                # Check if the activity has changed
-                if self.current_activity != (activity_name, app_name):
-                    end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    # print('Activity changed, handling new activity.')
-
-                    # End the previous time entry if it exists
-                    if self.current_time_entry_id:
-                        cursor.execute('''
-                            UPDATE TimeEntry
-                            SET end_time = ?, final_end_time = ?, minutes = (julianday(?) - julianday(start_time)) * 1440
-                            WHERE id = ?
-                        ''', (end_time, end_time, end_time, self.current_time_entry_id))
-                        self.conn.commit()
-
-                    # Start a new time entry
-                    start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    cursor.execute('''
-                        INSERT INTO TimeEntry (first_start_time, start_time, end_time, final_end_time, minutes)
-                        VALUES (?, ?, ?, ?, ?)
-                    ''', (start_time, start_time, end_time, end_time, 0))
-                    self.current_time_entry_id = cursor.lastrowid
-                    self.conn.commit()
-
-                    # Check if the activity already exists
-                    cursor.execute('''
-                        SELECT id, no_of_times_app_opened
-                        FROM Activity
-                        WHERE employee_id = ? AND activity_name = ? AND app_name = ?
-                    ''', (self.employee_id, activity_name, app_name))
-                    result = cursor.fetchone()
-
-                    if result:
-                        activity_id, no_of_times_app_opened = result
-                        # Increment the number of times the app has been opened
-                        cursor.execute('''
-                            UPDATE Activity
-                            SET no_of_times_app_opened = ?
-                            WHERE id = ?
-                        ''', (no_of_times_app_opened + 1, activity_id))
-                    else:
-                        # Insert new activity entry
-                        cursor.execute('''
-                            INSERT INTO Activity (employee_id, activity_name, app_name, no_of_times_app_opened, ip_address, TimeEntry_id)
-                            VALUES (?, ?, ?, ?, ?, ?)
-                        ''', (self.employee_id, activity_name, app_name, 1, ip_address, self.current_time_entry_id))
-
-                    self.conn.commit()
-                    self.current_activity = (activity_name, app_name)
-                    print(self.has_been_called)
-                    if self.has_been_called["stop"]:
-                        break
-
-        except StopMonitoringException :
-            print("Monitoring stopped due to exception.")
-
-
-
-    # def start(self):
-    #     self.monitoring_thread = threading.Thread(target=self.start_monitoring)
-    #     print(self.monitoring_thread)
-    #
-    #     self.monitoring_thread.start()
-
-    def stop(self):
-        self.running = False
-        self.has_been_called["stop"] = True
-
-
-        # print(self.monitoring_thread)
-        # self.monitoring_thread.join()
-        print('stop initialized')
-        try:
-            conn = sqlite3.connect(self.db_path, check_same_thread=False)
-            cursor = conn.cursor()
-            print('connected to db and cursor created')
-            end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    def start_monitoring(self, running):
+        db.connect()
+        if running:
             try:
-                if self.current_time_entry_id:
-                    cursor.execute('''
-                        UPDATE TimeEntry
-                        SET end_time = ?, final_end_time = ?, minutes = (julianday(?) - julianday(start_time)) * 1440
-                        WHERE id = ?
-                    ''', (end_time, end_time, end_time, self.current_time_entry_id))
-                    conn.commit()
+                while running:
+                    current_window = get_current_window()
+                    activity_name = current_window["title"]
+                    app_name = current_window["app"]
+                    ip_address = get_ip_address()
 
-                conn.close()
+                    # Check if the activity has changed
+                    if self.current_activity != (activity_name, app_name):
+                        end_time = datetime.now()
 
-                print('Commited and connection closed')
+                        # End the previous time entry if it exists
+                        if self.current_time_entry_id:
+                            time_entry = TimeEntry.get_by_id(self.current_time_entry_id)
+                            time_entry.end_time = end_time
+                            time_entry.final_end_time = end_time
+                            time_entry.minutes = (end_time - time_entry.start_time).total_seconds() / 60
+                            time_entry.save()
+
+                        # Start a new time entry
+                        start_time = datetime.now()
+                        new_time_entry = TimeEntry.create(
+                            first_start_time=start_time,
+                            start_time=start_time,
+                            end_time=end_time,
+                            final_end_time=end_time,
+                            minutes=0
+                        )
+                        self.current_time_entry_id = new_time_entry.id
+
+                        # Check if the activity already exists
+                        activity = Activity.get_or_none(
+                            Activity.employee_id == self.employee_id,
+                            Activity.activity_name == activity_name,
+                            Activity.app_name == app_name
+                        )
+
+                        if activity:
+                            # Increment the number of times the app has been opened
+                            activity.no_of_times_app_opened += 1
+                            self.current_time_entry_id = activity.time_entry
+                            activity.save()
+                        else:
+                            # Insert new activity entry
+                            Activity.create(
+                                employee_id=self.employee_id,
+                                activity_name=activity_name,
+                                app_name=app_name,
+                                no_of_times_app_opened=1,
+                                ip_address=ip_address,
+                                time_entry=new_time_entry
+                            )
+
+                        self.current_activity = (activity_name, app_name)
 
             except Exception as e:
-                print(f'Thrown while executing query {e}')
+                logging.error("Error in start_monitoring", exc_info=True)
+                raise StopMonitoringException from e
+        else:
+            try:
+                if self.current_time_entry_id:
+                    print('trying to stop')
+                    end_time = datetime.now()
+                    time_entry = TimeEntry.get_by_id(self.current_time_entry_id)
+                    time_entry.end_time = end_time
+                    time_entry.final_end_time = end_time
+                    time_entry.minutes = (end_time - time_entry.start_time).total_seconds() / 60
+                    print('saving')
+                    time_entry.save()
+                db.close()
+            except Exception as e:
+                logging.error("Error in stop", exc_info=True)
 
-        except Exception as e:
-            print(f' Couldn\'t connect to db cuz: {e}')
-
-
-
-
+    def stop(self):
+        running = False
+        self.start_monitoring(running)
