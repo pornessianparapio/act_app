@@ -2,6 +2,7 @@
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QDesktopWidget
 from utils.api import login_api
 from ui.styles import dark_style
+# from ui.main_window import MainWindow
 
 import sqlite3
 class LoginWindow(QDialog):
@@ -40,7 +41,7 @@ class LoginWindow(QDialog):
         cursor = connection.cursor()
 
         # Check if the email and password already exist in the User table
-        cursor.execute("SELECT email, password,employee_id FROM User WHERE email=? AND password=?", (email, password))
+        cursor.execute("SELECT email, password,employee_id FROM user WHERE email=? AND password=?", (email, password))
         result = cursor.fetchone()
         if result:
             # If email and password already exist, skip the login process
