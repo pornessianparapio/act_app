@@ -1,6 +1,10 @@
 from peewee import *
+import logging
 
+
+logging.basicConfig(filename='db.log', level=logging.ERROR, format='%(asctime)s %(levelname)s:%(message)s')
 db = SqliteDatabase('activity_monitor.db')
+
 
 class BaseModel(Model):
     class Meta:

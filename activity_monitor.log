@@ -114,3 +114,23 @@ Traceback (most recent call last):
   File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 80, in start_monitoring
     raise StopMonitoringException from e
 monitoring.activity_monitor.StopMonitoringException
+2024-08-06 12:38:47,586 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\login_window.py", line 44, in login
+    cursor.execute("SELECT email, password,employee_id FROM user WHERE email=? AND password=?", (email, password))
+sqlite3.OperationalError: no such table: user
+2024-08-06 12:38:57,486 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\login_window.py", line 44, in login
+    cursor.execute("SELECT email, password,employee_id FROM user WHERE email=? AND password=?", (email, password))
+sqlite3.OperationalError: no such table: user
+2024-08-06 12:39:20,470 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\login_window.py", line 44, in login
+    cursor.execute("SELECT email, password,employee_id FROM user WHERE email=? AND password=?", (email, password))
+sqlite3.OperationalError: no such table: user
+2024-08-06 12:40:17,526 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\login_window.py", line 44, in login
+    cursor.execute("SELECT email, password,employee_id FROM user WHERE email=? AND password=?", (email, password))
+sqlite3.OperationalError: no such table: user
