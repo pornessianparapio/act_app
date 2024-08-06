@@ -61,6 +61,7 @@ class ActivityMonitor:
                         if activity:
                             # Increment the number of times the app has been opened
                             activity.no_of_times_app_opened += 1
+                            self.current_time_entry_id = activity.time_entry
                             activity.save()
                         else:
                             # Insert new activity entry
