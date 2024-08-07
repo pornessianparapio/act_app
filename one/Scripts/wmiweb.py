@@ -5,7 +5,7 @@ try:
 except ImportError:
     from urllib.parse import quote
 from wsgiref.simple_server import make_server
-from wsgiref.util import request_uri, application_uri, shift_path_info
+from wsgiref.util import shift_path_info
 
 import wmi
 

@@ -2,35 +2,47 @@
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox, QDesktopWidget
 from utils.api import login_api
 from ui.styles import dark_style
+from PyQt5 import uic
 # from ui.main_window import MainWindow
 
 import sqlite3
 class LoginWindow(QDialog):
+
+
     def __init__(self):
         super().__init__()
-        self.employee_id = None
+
+        uic.loadUi('ui/login_window.ui', self)
+
         self.setWindowTitle("Login")
-        self.setGeometry(100, 100, 300, 200)
+
         self.setStyleSheet(dark_style)
 
-        layout = QVBoxLayout()
-
-        self.email_label = QLabel("Email:")
-        self.email_input = QLineEdit()
-        layout.addWidget(self.email_label)
-        layout.addWidget(self.email_input)
-
-        self.password_label = QLabel("Password:")
-        self.password_input = QLineEdit()
-        self.password_input.setEchoMode(QLineEdit.Password)
-        layout.addWidget(self.password_label)
-        layout.addWidget(self.password_input)
-
-        self.login_button = QPushButton("Login")
         self.login_button.clicked.connect(self.login)
-        layout.addWidget(self.login_button)
 
-        self.setLayout(layout)
+        self.employee_id = None
+
+
+    def validate_password_length(self):
+            if len(self.password_input.text()) > 8:
+                self.password_input.setText(self.password_input.text()[:8])
+                # QMessageBox.warning(None, "Invalid Password", "Password cannot exceed 8 characters.")
+                self.validation_label.setText("Password cannot exceed 8 characters.")
+
+    def validate_email(self):
+        email_text = self.email_input.text()
+        if "@gmail.com" not in email_text:
+            self.validation_label.setText("Email must contain '@gmail.com'.")
+        else:
+            self.validation_label.setText("")
+
+    def show_alert(self, message, title="Alert"):
+        msg_box = QMessageBox()
+        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setText(message)
+        msg_box.setWindowTitle(title)
+        msg_box.setStandardButtons(QMessageBox.Ok)
+        msg_box.exec_()
 
     def login(self):
         try:

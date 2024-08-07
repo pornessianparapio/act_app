@@ -21,7 +21,7 @@
        <string>Start Monitoring</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: #5cb85c; color: white;</string>
+       <string notr="true">background-color: #06400E color: green;</string>
       </property>
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">

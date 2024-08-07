@@ -30,7 +30,7 @@ http://cgit.freedesktop.org/xorg/proto/randrproto/tree/randrproto.txt
 
 
 from Xlib import X
-from Xlib.protocol import rq, structs
+from Xlib.protocol import rq
 
 extname = 'RANDR'
 
