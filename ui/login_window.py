@@ -32,6 +32,29 @@ class LoginWindow(QDialog):
 
         self.setLayout(layout)
 
+
+
+    def validate_password_length(self):
+        if len(self.password_input.text()) > 8:
+            self.password_input.setText(self.password_input.text()[:8])
+            # QMessageBox.warning(None, "Invalid Password", "Password cannot exceed 8 characters.")
+            self.validation_label.setText("Password cannot exceed 8 characters.")
+
+    def validate_email(self):
+        email_text = self.email_input.text()
+        if "@gmail.com" not in email_text:
+            self.validation_label.setText("Email must contain '@gmail.com'.")
+        else:
+            self.validation_label.setText("")
+
+    def show_alert(self, message, title="Alert"):
+        msg_box = QMessageBox()
+        msg_box.setIcon(QMessageBox.Information)
+        msg_box.setText(message)
+        msg_box.setWindowTitle(title)
+        msg_box.setStandardButtons(QMessageBox.Ok)
+        msg_box.exec_()
+
     def login(self):
         try:
             email = self.email_input.text()

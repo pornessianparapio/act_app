@@ -189,3 +189,37 @@ Traceback (most recent call last):
   File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 81, in start_monitoring
     raise StopMonitoringException from e
 monitoring.activity_monitor.StopMonitoringException
+2024-08-06 19:14:13,809 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\login_window.py", line 55, in login
+    response = login_api(email, password)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\utils\api.py", line 8, in login_api
+    return {"success": True, "employee_id": data["id"]}
+                                            ~~~~^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\login_window.py", line 69, in login
+    self.show_alert(f"Unexpected error occurred: {str(e)}", "Unexpected Error Occured")
+    ^^^^^^^^^^^^^^^
+AttributeError: 'LoginWindow' object has no attribute 'show_alert'
+2024-08-06 19:14:24,179 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\login_window.py", line 55, in login
+    response = login_api(email, password)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\utils\api.py", line 8, in login_api
+    return {"success": True, "employee_id": data["id"]}
+                                            ~~~~^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\login_window.py", line 69, in login
+    self.show_alert(f"Unexpected error occurred: {str(e)}", "Unexpected Error Occured")
+    ^^^^^^^^^^^^^^^
+AttributeError: 'LoginWindow' object has no attribute 'show_alert'
