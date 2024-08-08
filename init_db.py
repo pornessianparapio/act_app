@@ -16,11 +16,11 @@ class User(BaseModel):
     employee_id = CharField(unique=True)
 
 class TimeEntry(BaseModel):
-    first_start_time = DateTimeField()
-    start_time = DateTimeField()
-    end_time = DateTimeField()
-    final_end_time = DateTimeField()
-    minutes = IntegerField()
+    first_start_time = DateTimeField(default=0)
+    start_time = DateTimeField(default=0)
+    end_time = DateTimeField(default=0)
+    final_end_time = DateTimeField(default=0)
+    minutes = FloatField(default=0)
     # user = ForeignKeyField(User, backref='time_entries')
 
 class Activity(BaseModel):

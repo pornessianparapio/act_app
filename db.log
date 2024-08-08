@@ -223,3 +223,414 @@ Traceback (most recent call last):
     self.show_alert(f"Unexpected error occurred: {str(e)}", "Unexpected Error Occured")
     ^^^^^^^^^^^^^^^
 AttributeError: 'LoginWindow' object has no attribute 'show_alert'
+2024-08-07 17:53:17,310 ERROR:Error in start_monitoring
+Traceback (most recent call last):
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3322, in execute_sql
+    cursor.execute(sql, params or ())
+sqlite3.IntegrityError: NOT NULL constraint failed: timeentry.end_time
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 97, in start_monitoring
+    new_time_entry = TimeEntry.create(first_start_time=now, start_time=now)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 6741, in create
+    inst.save(force_insert=True)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 6951, in save
+    pk = self.insert(**field_dict).execute()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2036, in inner
+    return method(self, database, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2107, in execute
+    return self._execute(database)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2912, in _execute
+    return super(Insert, self)._execute(database)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2625, in _execute
+    cursor = database.execute(self)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3330, in execute
+    return self.execute_sql(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3320, in execute_sql
+    with __exception_wrapper__:
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3088, in __exit__
+    reraise(new_type, new_type(exc_value, *exc_args), traceback)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 196, in reraise
+    raise value.with_traceback(tb)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3322, in execute_sql
+    cursor.execute(sql, params or ())
+peewee.IntegrityError: NOT NULL constraint failed: timeentry.end_time
+2024-08-07 17:53:17,320 ERROR:Error in monitoring thread
+Traceback (most recent call last):
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3322, in execute_sql
+    cursor.execute(sql, params or ())
+sqlite3.IntegrityError: NOT NULL constraint failed: timeentry.end_time
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 97, in start_monitoring
+    new_time_entry = TimeEntry.create(first_start_time=now, start_time=now)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 6741, in create
+    inst.save(force_insert=True)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 6951, in save
+    pk = self.insert(**field_dict).execute()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2036, in inner
+    return method(self, database, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2107, in execute
+    return self._execute(database)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2912, in _execute
+    return super(Insert, self)._execute(database)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2625, in _execute
+    cursor = database.execute(self)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3330, in execute
+    return self.execute_sql(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3320, in execute_sql
+    with __exception_wrapper__:
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3088, in __exit__
+    reraise(new_type, new_type(exc_value, *exc_args), traceback)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 196, in reraise
+    raise value.with_traceback(tb)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3322, in execute_sql
+    cursor.execute(sql, params or ())
+peewee.IntegrityError: NOT NULL constraint failed: timeentry.end_time
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 39, in run
+    self.monitor.start_monitoring(self._is_running)
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 119, in start_monitoring
+    raise StopMonitoringException from e
+monitoring.activity_monitor.StopMonitoringException
+2024-08-07 17:57:23,776 ERROR:Error in start_monitoring
+Traceback (most recent call last):
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3322, in execute_sql
+    cursor.execute(sql, params or ())
+sqlite3.IntegrityError: NOT NULL constraint failed: timeentry.end_time
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 98, in start_monitoring
+    new_time_entry = TimeEntry.create(first_start_time=now, start_time=now)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 6741, in create
+    inst.save(force_insert=True)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 6951, in save
+    pk = self.insert(**field_dict).execute()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2036, in inner
+    return method(self, database, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2107, in execute
+    return self._execute(database)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2912, in _execute
+    return super(Insert, self)._execute(database)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2625, in _execute
+    cursor = database.execute(self)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3330, in execute
+    return self.execute_sql(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3320, in execute_sql
+    with __exception_wrapper__:
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3088, in __exit__
+    reraise(new_type, new_type(exc_value, *exc_args), traceback)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 196, in reraise
+    raise value.with_traceback(tb)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3322, in execute_sql
+    cursor.execute(sql, params or ())
+peewee.IntegrityError: NOT NULL constraint failed: timeentry.end_time
+2024-08-07 17:57:23,779 ERROR:Error in monitoring thread
+Traceback (most recent call last):
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3322, in execute_sql
+    cursor.execute(sql, params or ())
+sqlite3.IntegrityError: NOT NULL constraint failed: timeentry.end_time
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 98, in start_monitoring
+    new_time_entry = TimeEntry.create(first_start_time=now, start_time=now)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 6741, in create
+    inst.save(force_insert=True)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 6951, in save
+    pk = self.insert(**field_dict).execute()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2036, in inner
+    return method(self, database, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2107, in execute
+    return self._execute(database)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2912, in _execute
+    return super(Insert, self)._execute(database)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2625, in _execute
+    cursor = database.execute(self)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3330, in execute
+    return self.execute_sql(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3320, in execute_sql
+    with __exception_wrapper__:
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3088, in __exit__
+    reraise(new_type, new_type(exc_value, *exc_args), traceback)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 196, in reraise
+    raise value.with_traceback(tb)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3322, in execute_sql
+    cursor.execute(sql, params or ())
+peewee.IntegrityError: NOT NULL constraint failed: timeentry.end_time
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 39, in run
+    self.monitor.start_monitoring(self._is_running)
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 120, in start_monitoring
+    raise StopMonitoringException from e
+monitoring.activity_monitor.StopMonitoringException
+2024-08-07 18:03:50,185 ERROR:Error in start_monitoring
+Traceback (most recent call last):
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3322, in execute_sql
+    cursor.execute(sql, params or ())
+sqlite3.IntegrityError: NOT NULL constraint failed: timeentry.end_time
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 98, in start_monitoring
+    new_time_entry = TimeEntry.create(first_start_time=now, start_time=now)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 6741, in create
+    inst.save(force_insert=True)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 6951, in save
+    pk = self.insert(**field_dict).execute()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2036, in inner
+    return method(self, database, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2107, in execute
+    return self._execute(database)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2912, in _execute
+    return super(Insert, self)._execute(database)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2625, in _execute
+    cursor = database.execute(self)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3330, in execute
+    return self.execute_sql(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3320, in execute_sql
+    with __exception_wrapper__:
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3088, in __exit__
+    reraise(new_type, new_type(exc_value, *exc_args), traceback)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 196, in reraise
+    raise value.with_traceback(tb)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3322, in execute_sql
+    cursor.execute(sql, params or ())
+peewee.IntegrityError: NOT NULL constraint failed: timeentry.end_time
+2024-08-07 18:03:50,188 ERROR:Error in monitoring thread
+Traceback (most recent call last):
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3322, in execute_sql
+    cursor.execute(sql, params or ())
+sqlite3.IntegrityError: NOT NULL constraint failed: timeentry.end_time
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 98, in start_monitoring
+    new_time_entry = TimeEntry.create(first_start_time=now, start_time=now)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 6741, in create
+    inst.save(force_insert=True)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 6951, in save
+    pk = self.insert(**field_dict).execute()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2036, in inner
+    return method(self, database, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2107, in execute
+    return self._execute(database)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2912, in _execute
+    return super(Insert, self)._execute(database)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 2625, in _execute
+    cursor = database.execute(self)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3330, in execute
+    return self.execute_sql(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3320, in execute_sql
+    with __exception_wrapper__:
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3088, in __exit__
+    reraise(new_type, new_type(exc_value, *exc_args), traceback)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 196, in reraise
+    raise value.with_traceback(tb)
+  File "c:\users\hsm\desktop\purvesh\project\activity_app\venv\lib\site-packages\peewee.py", line 3322, in execute_sql
+    cursor.execute(sql, params or ())
+peewee.IntegrityError: NOT NULL constraint failed: timeentry.end_time
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 39, in run
+    self.monitor.start_monitoring(self._is_running)
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 120, in start_monitoring
+    raise StopMonitoringException from e
+monitoring.activity_monitor.StopMonitoringException
+2024-08-07 18:08:29,587 ERROR:Error in start_monitoring
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 78, in start_monitoring
+    previous_time_entry.minutes += int(
+TypeError: unsupported operand type(s) for +=: 'NoneType' and 'int'
+2024-08-07 18:08:29,588 ERROR:Error in monitoring thread
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 78, in start_monitoring
+    previous_time_entry.minutes += int(
+TypeError: unsupported operand type(s) for +=: 'NoneType' and 'int'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 39, in run
+    self.monitor.start_monitoring(self._is_running)
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 120, in start_monitoring
+    raise StopMonitoringException from e
+monitoring.activity_monitor.StopMonitoringException
+2024-08-08 11:47:20,426 ERROR:Error in start_monitoring
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 87, in start_monitoring
+    previous_activity.dequeue()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Activity' object has no attribute 'dequeue'
+2024-08-08 11:47:20,429 ERROR:Error in monitoring thread
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 87, in start_monitoring
+    previous_activity.dequeue()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Activity' object has no attribute 'dequeue'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 39, in run
+    self.monitor.start_monitoring(self._is_running)
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 127, in start_monitoring
+    raise StopMonitoringException from e
+monitoring.activity_monitor.StopMonitoringException
+2024-08-08 11:56:25,427 ERROR:Error in start_monitoring
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 87, in start_monitoring
+    previous_activity.dequeue()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Activity' object has no attribute 'dequeue'
+2024-08-08 11:56:25,428 ERROR:Error in monitoring thread
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 87, in start_monitoring
+    previous_activity.dequeue()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Activity' object has no attribute 'dequeue'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 39, in run
+    self.monitor.start_monitoring(self._is_running)
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 128, in start_monitoring
+    raise StopMonitoringException from e
+monitoring.activity_monitor.StopMonitoringException
+2024-08-08 11:57:50,210 ERROR:Error in start_monitoring
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 87, in start_monitoring
+    previous_activity.dequeue()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Activity' object has no attribute 'dequeue'
+2024-08-08 11:57:50,211 ERROR:Error in monitoring thread
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 87, in start_monitoring
+    previous_activity.dequeue()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Activity' object has no attribute 'dequeue'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 39, in run
+    self.monitor.start_monitoring(self._is_running)
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 128, in start_monitoring
+    raise StopMonitoringException from e
+monitoring.activity_monitor.StopMonitoringException
+2024-08-08 12:15:24,419 ERROR:Error in start_monitoring
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 72, in start_monitoring
+    previous_activity = self.activity_queue.pop()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+IndexError: pop from an empty deque
+2024-08-08 12:15:24,420 ERROR:Error in monitoring thread
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 72, in start_monitoring
+    previous_activity = self.activity_queue.pop()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+IndexError: pop from an empty deque
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 39, in run
+    self.monitor.start_monitoring(self._is_running)
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 129, in start_monitoring
+    raise StopMonitoringException from e
+monitoring.activity_monitor.StopMonitoringException
+2024-08-08 13:10:22,635 ERROR:Error in start_monitoring
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 73, in start_monitoring
+    previous_activity = self.activity_queue.pop()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+IndexError: pop from an empty deque
+2024-08-08 13:10:22,637 ERROR:Error in monitoring thread
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 73, in start_monitoring
+    previous_activity = self.activity_queue.pop()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+IndexError: pop from an empty deque
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 39, in run
+    self.monitor.start_monitoring(self._is_running)
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\monitoring\activity_monitor.py", line 131, in start_monitoring
+    raise StopMonitoringException from e
+monitoring.activity_monitor.StopMonitoringException
+2024-08-08 18:02:42,430 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 148, in stop_monitoring
+    self.monitoring_thread.stop()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MonitoringThread' object has no attribute 'stop'
+2024-08-08 18:02:45,939 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 185, in closeEvent
+    self.stop_monitoring()
+  File "C:\Users\HSM\Desktop\Purvesh\Project\act_app\ui\main_window.py", line 148, in stop_monitoring
+    self.monitoring_thread.stop()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MonitoringThread' object has no attribute 'stop'

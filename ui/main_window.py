@@ -145,7 +145,11 @@ class MainWindow(QMainWindow):
     def stop_monitoring(self):
         if self.monitoring_thread:
             self.monitoring_thread.stop_monitoring()
-            self.monitoring_thread.quit()
+            # self.monitoring_thread.stop()
+            # self.monitoring_thread.exit()
+            self.monitoring_thread.terminate()
+
+            print(self.monitoring_thread.isRunning())
             # self.monitoring_thread.wait()
             self.monitoring_thread = None
             self.start_button.setEnabled(True)
@@ -154,7 +158,9 @@ class MainWindow(QMainWindow):
 
     def logout(self):
         try:
-            self.stop_monitoring()  # Stop monitoring before logging out
+            self.stop_monitoring()
+            # Stop monitoring before logging out
+
         except Exception as e:
             logging.error("Error during logout", exc_info=True)
         self.show_alert("You've been logged out!", "Logged Out")
@@ -162,6 +168,7 @@ class MainWindow(QMainWindow):
         self.show_login_window()
 
     def show_login_window(self):
+        employee_id = None
         login_window = LoginWindow()
         if login_window.exec_() == QDialog.Accepted:
             employee_id = login_window.get_employee_id()

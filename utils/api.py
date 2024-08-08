@@ -5,7 +5,8 @@ def login_api(email, password):
     response = requests.post(url, json={"email": email, "password": password})
     if response.status_code == 200:
         data=response.json().get("data")
-        return {"success": True, "employee_id": data["id"]}
+        print(data)
+        return {"success": True, "employee_id": data["userId"]}
     return {"success": False}
 
 
