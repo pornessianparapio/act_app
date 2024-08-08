@@ -2,8 +2,11 @@ import sys
 from PyQt5.QtWidgets import QApplication, QDialog
 from ui.login_window import LoginWindow
 from ui.main_window import MainWindow
+from init_db import initialize_db
 
 if __name__ == "__main__":
+    initialize_db()
+
     app = QApplication(sys.argv)
 
     try:

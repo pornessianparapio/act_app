@@ -1,0 +1,25 @@
+act as an exprt python developer. understand the following problem and give most optimized solution
+implement in python
+Problem:
+Assume a database 'activity_monitor.db' in that there are two tables Activity(activity_name,app_name,no_of_times_app_opened,ip_address,time_entry(fk)) and TimeEntry(first_start_time, start_time, end_time, final_end_time, minutes)
+Activity table is connected to TimeEntry table by thr foreign key time_entry. Every entry in activity table has exactly one time entry in TimeEntry table. 
+
+
+if activity exists in Activity table:
+	set endtime of previous acitvity = now
+	set final endtime of previous acitvity = now
+	set minutes of previous activity += (end_time of previous activity - start_time of previous activity)
+	set starttime of current acitvity = now
+	set no_of_times_app_opened of current activity +=1
+
+if activity doesnt exist:
+	add the new actiivity to activty table
+	set first_start_time of this activity= now
+	set start_time = now
+
+	
+
+Note:
+1. the orm used to query the db is peewee
+2. suggest which datastructure or algorithm would you use to solve the problem of previous and current and activity give reasons why.
+3. make sure to add comments everywhere for better understanding and documentation
