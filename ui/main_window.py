@@ -63,6 +63,7 @@ class MainWindow(QMainWindow):
         self.start_button.clicked.connect(self.start_monitoring)
         layout.addWidget(self.start_button)
 
+
         self.stop_button = QPushButton("Stop Monitoring")
         self.stop_button.setStyleSheet("background-color: #d9534f; color: white;")
         self.stop_button.setFixedSize(150, 50)
