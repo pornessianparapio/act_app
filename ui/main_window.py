@@ -1,12 +1,16 @@
-# main_window.py
-from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QPushButton, QWidget, QDesktopWidget, QMessageBox, QDialog
-from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot
+from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QPushButton, QWidget, QLabel, QCalendarWidget, QDesktopWidget, QMessageBox, QDialog, QGridLayout
+from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot, QTimer, QDateTime
+from PyQt5.QtGui import QPixmap
 from monitoring.activity_monitor import ActivityMonitor  # Ensure this class is implemented correctly
 from ui.styles import dark_style  # Ensure dark_style is defined
 import logging
 import sys
 import traceback
 from .login_window import LoginWindow
+
+
+# Assuming you have an image for the profile picture
+# PROFILE_PIC_PATH = '.\icons\login.png'  # put correct path
 
 # Set up logging
 logging.basicConfig(filename='app.log', level=logging.ERROR, format='%(asctime)s %(levelname)s:%(message)s')
@@ -45,50 +49,106 @@ class MonitoringThread(QThread):
         self._is_running = False
 
 class MainWindow(QMainWindow):
-    def __init__(self, employee_id):
+    def __init__(self, employee_id, employee_details):
         super().__init__()
+        self.employee_details = employee_details  # Store employee details
         self.setWindowTitle("Activity Monitor")
-        self.setGeometry(100, 100, 400, 300)
+        self.setGeometry(100, 100, 800, 600)  # Adjusted window size
         self.setStyleSheet(dark_style)
         self.center()
 
         self.monitor = ActivityMonitor(employee_id)
         self.monitoring_thread = None
 
-        layout = QVBoxLayout()
+        main_layout = QVBoxLayout()
+
+        # Top layout for clock and calendar
+        top_layout = QHBoxLayout()
+
+        # Clock
+        self.clock_label = QLabel()
+        self.clock_label.setStyleSheet("font-size: 18px;")
+        top_layout.addWidget(self.clock_label)
+
+        # Calendar
+        self.calendar = QCalendarWidget()
+        self.calendar.setFixedSize(200, 150)
+        top_layout.addWidget(self.calendar)
+
+        # Adding employee details section
+        details_layout = QGridLayout()
+
+        # Profile Picture
+        # self.profile_label = QLabel()
+        # pixmap = QPixmap(PROFILE_PIC_PATH).scaled(100, 100)
+        # self.profile_label.setPixmap(pixmap)
+        # details_layout.addWidget(self.profile_label, 0, 0, 1, 2)
+
+        # Employee Name
+        self.name_label = QLabel(f"Name: {employee_details['name']}")
+        details_layout.addWidget(self.name_label, 1, 0)
+
+        # Employee Email
+        self.email_label = QLabel(f"Email: {employee_details['email']}")
+        details_layout.addWidget(self.email_label, 2, 0)
+
+        # Employee Contact
+        self.contact_label = QLabel(f"Contact: {employee_details['contact']}")
+        details_layout.addWidget(self.contact_label, 3, 0)
+
+        # Employee Address
+        self.address_label = QLabel(f"Address: {employee_details['address']}")
+        details_layout.addWidget(self.address_label, 4, 0)
+
+        # Joining Date
+        self.joining_date_label = QLabel(f"Joining Date: {employee_details['joinDate']}")
+        details_layout.addWidget(self.joining_date_label, 5, 0)
+
+        # Date of Birth
+        self.dob_label = QLabel(f"Date of Birth: {employee_details['dob']}")
+        details_layout.addWidget(self.dob_label, 6, 0)
+
+        # Adding to main layout
+        main_layout.addLayout(top_layout)
+        main_layout.addLayout(details_layout)
+
+        # Buttons
+        button_layout = QHBoxLayout()
 
         self.start_button = QPushButton("Start Monitoring")
         self.start_button.setStyleSheet("background-color: #5cb85c; color: white;")
         self.start_button.setFixedSize(150, 50)
         self.start_button.clicked.connect(self.start_monitoring)
-        layout.addWidget(self.start_button)
-
+        button_layout.addWidget(self.start_button)
 
         self.stop_button = QPushButton("Stop Monitoring")
         self.stop_button.setStyleSheet("background-color: #d9534f; color: white;")
         self.stop_button.setFixedSize(150, 50)
         self.stop_button.clicked.connect(self.stop_monitoring)
-        layout.addWidget(self.stop_button)
-
+        button_layout.addWidget(self.stop_button)
         self.stop_button.setEnabled(False)
 
         self.logout_button = QPushButton("Logout")
         self.logout_button.setStyleSheet("background-color: #d9534f; color: white;")
         self.logout_button.setFixedSize(150, 50)
         self.logout_button.clicked.connect(self.logout)
-        layout.addWidget(self.logout_button)
+        button_layout.addWidget(self.logout_button)
+
+        main_layout.addLayout(button_layout)
 
         container = QWidget()
-        container.setLayout(layout)
+        container.setLayout(main_layout)
         self.setCentralWidget(container)
 
-    def show_alert(self, message, title="Alert"):
-        msg_box = QMessageBox()
-        msg_box.setIcon(QMessageBox.Information)
-        msg_box.setText(message)
-        msg_box.setWindowTitle(title)
-        msg_box.setStandardButtons(QMessageBox.Ok)
-        msg_box.exec_()
+        # Set up clock update
+        self.update_clock()
+        timer = QTimer(self)
+        timer.timeout.connect(self.update_clock)
+        timer.start(1000)  # Update every second
+
+    def update_clock(self):
+        current_time = QDateTime.currentDateTime().toString("hh:mm:ss")
+        self.clock_label.setText(f"Current Time: {current_time}")
 
     def start_monitoring(self):
         if not self.monitoring_thread or not self.monitoring_thread.isRunning():
@@ -101,17 +161,10 @@ class MainWindow(QMainWindow):
     def stop_monitoring(self):
         if self.monitoring_thread:
             self.monitoring_thread.stop_monitoring()
-            print('ateempting thread stop')
             self.monitoring_thread.quit()
-            print('thread quit')
-            # self.monitoring_thread.wait()
-            print('thread wait cancelled')
             self.monitoring_thread = None
-            print('monitoring thread closed')
             self.start_button.setEnabled(True)
-            print('start_button enabled')
             self.stop_button.setEnabled(False)
-            print('stop_button disabled')
             self.show_alert("Monitoring stopped successfully.", "Stop Monitoring")
 
     def logout(self):
@@ -128,7 +181,7 @@ class MainWindow(QMainWindow):
         login_window = LoginWindow()
         if login_window.exec_() == QDialog.Accepted:
             employee_id = login_window.get_employee_id()
-            self.__init__(employee_id)  # Reinitialize MainWindow with the new employee ID
+            self.__init__(employee_id, self.employee_details)  # Reinitialize MainWindow with the new employee ID
             self.show()
 
     def center(self):
@@ -141,15 +194,3 @@ class MainWindow(QMainWindow):
         if self.monitoring_thread and self.monitoring_thread.isRunning():
             self.stop_monitoring()
         event.accept()
-
-
-
-
-# if __name__ == "__main__":
-#     import sys
-#     from PyQt5.QtWidgets import QApplication
-#     app = QApplication(sys.argv)
-#     employee_id = "test_employee"  # Replace with actual login process to get employee ID
-#     window = MainWindow(employee_id)
-#     window.show()
-#     sys.exit(app.exec_())

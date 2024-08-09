@@ -1,8 +1,4 @@
 dark_style = """
-QWidget {
-    background-color: #e2eafc;
-    color: #f0f0f0;
-}
 
 QLineEdit, QComboBox, QSpinBox, QTextEdit, QPlainTextEdit {
     background-color: #3e3e3e;

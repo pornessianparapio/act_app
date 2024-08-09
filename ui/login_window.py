@@ -20,6 +20,7 @@ class LoginWindow(QDialog):
         self.login_button.clicked.connect(self.login)
 
         self.employee_id = None
+        self.employee_details=None
 
 
 
@@ -60,14 +61,19 @@ class LoginWindow(QDialog):
             result = cursor.fetchone()
             if result:
                 # If email and password already exist, skip the login process
-                self.employee_id = result[2]
-                print(self.employee_id)
-                self.accept()
+                response = login_api(email, password)
+                if response.get("success"):
+                    self.employee_id = response.get("employee_id")
+                    self.employee_details = response.get("employee_details")
+                    self.accept()
+                else:
+                    self.show_alert("Invalid email or passwordd", "Invalid credentialss")
             else:
                 # If they do not exist, proceed with the login API call
                 response = login_api(email, password)
                 if response.get("success"):
                     self.employee_id = response.get("employee_id")
+                    self.employee_details = response.get("employee_details")
                     # Store the employee ID in the database
                     self.store_employee_id(email, password, self.employee_id)
                     self.accept()
@@ -95,6 +101,8 @@ class LoginWindow(QDialog):
     def get_employee_id(self):
         return self.employee_id
 
+    def get_employee_details(self):
+        return self.employee_details
     def showEvent(self, event):
         super().showEvent(event)
         self.center()

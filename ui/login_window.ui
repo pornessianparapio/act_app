@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>300</width>
-    <height>297</height>
+    <height>279</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -22,28 +22,43 @@
   <property name="styleSheet">
    <string notr="true">background-color: #e2eafc;</string>
   </property>
-  <widget class="QLabel" name="email_label">
+  <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
      <x>110</x>
-     <y>60</y>
-     <width>28</width>
-     <height>16</height>
+     <y>20</y>
+     <width>61</width>
+     <height>51</height>
     </rect>
    </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: #e2eafc;</string>
+   <property name="mouseTracking">
+    <bool>true</bool>
+   </property>
+   <property name="tabletTracking">
+    <bool>true</bool>
+   </property>
+   <property name="acceptDrops">
+    <bool>true</bool>
    </property>
    <property name="text">
-    <string>Email:</string>
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>icons/login.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLineEdit" name="email_input">
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>90</y>
-     <width>133</width>
+     <y>120</y>
+     <width>141</width>
      <height>20</height>
     </rect>
    </property>
@@ -56,8 +71,8 @@
   <widget class="QLabel" name="password_label">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>130</y>
+     <x>120</x>
+     <y>160</y>
      <width>50</width>
      <height>16</height>
     </rect>
@@ -70,8 +85,8 @@
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>160</y>
-     <width>133</width>
+     <y>190</y>
+     <width>141</width>
      <height>20</height>
     </rect>
    </property>
@@ -84,12 +99,28 @@
     <enum>QLineEdit::Password</enum>
    </property>
   </widget>
+  <widget class="QLabel" name="email_label">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>90</y>
+     <width>41</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: #e2eafc;</string>
+   </property>
+   <property name="text">
+    <string>Email:</string>
+   </property>
+  </widget>
   <widget class="QPushButton" name="login_button">
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>200</y>
-     <width>91</width>
+     <y>220</y>
+     <width>101</width>
      <height>41</height>
     </rect>
    </property>
@@ -108,26 +139,9 @@
     <string>Login</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>0</y>
-     <width>51</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="pixmap">
-    <pixmap>icons/login.png</pixmap>
-   </property>
-   <property name="scaledContents">
-    <bool>true</bool>
-   </property>
-  </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>
