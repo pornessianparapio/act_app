@@ -280,3 +280,16 @@ Traceback (most recent call last):
     self.show_alert("Monitoring stopped successfully.", "Stop Monitoring")
     ^^^^^^^^^^^^^^^
 AttributeError: 'MainWindow' object has no attribute 'show_alert'
+2024-08-09 17:29:55,009 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\PycharmProjects\pythonProject\act_app\ui\main_window.py", line 159, in start_monitoring
+    self.show_alert("Monitoring started successfully.", "Start Monitoring")
+    ^^^^^^^^^^^^^^^
+AttributeError: 'MainWindow' object has no attribute 'show_alert'
+
+2024-08-12 12:30:04,128 ERROR:Uncaught exception
+Traceback (most recent call last):
+  File "C:\Users\HSM\PycharmProjects\pythonProject\act_app\ui\main_window.py", line 148, in start_monitoring
+    self.show_alert("Monitoring started successfully.", "Start Monitoring")
+    ^^^^^^^^^^^^^^^
+AttributeError: 'MainWindow' object has no attribute 'show_alert'
