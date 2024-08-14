@@ -2,11 +2,8 @@ import sys
 from PyQt5.QtWidgets import QApplication, QDialog
 from ui.login_window import LoginWindow
 from ui.main_window import MainWindow
-from init_db import initialize_db
 
 if __name__ == "__main__":
-    initialize_db()
-
     app = QApplication(sys.argv)
 
     try:
@@ -16,9 +13,13 @@ if __name__ == "__main__":
         if login.exec_() == QDialog.Accepted:
 
             employee_id = login.get_employee_id()
+            employee_details = login.get_employee_details()
             print(employee_id)
-            window = MainWindow(employee_id)
-            window.show()
+            try:
+                window = MainWindow(employee_id, employee_details)
+                window.show()
+            except Exception as e:
+                print(f'couldnt open main window cuz: {e}')
     except Exception as e:
         print(f'couldnt open login window cuz: {e}')
     try:
