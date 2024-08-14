@@ -6,67 +6,33 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>585</width>
-    <height>386</height>
+    <width>776</width>
+    <height>460</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Activity Monitor</string>
   </property>
-  <property name="stylesheet" stdset="0">
+  <property name="styleSheet">
    <string notr="true">dark_style</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="start_button">
-    <property name="geometry">
-     <rect>
-      <x>339</x>
-      <y>289</y>
-      <width>150</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>150</width>
-      <height>50</height>
-     </size>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: #5cb85c; color: white;</string>
-    </property>
-    <property name="text">
-     <string>Start Monitoring</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="stop_button">
     <property name="enabled">
      <bool>false</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>179</x>
-      <y>289</y>
+      <x>330</x>
+      <y>335</y>
       <width>150</width>
-      <height>50</height>
+      <height>41</height>
      </rect>
     </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
+    <property name="maximumSize">
      <size>
       <width>150</width>
-      <height>50</height>
+      <height>41</height>
      </size>
     </property>
     <property name="styleSheet">
@@ -75,26 +41,54 @@
     <property name="text">
      <string>Stop Monitoring</string>
     </property>
+    <property name="fixedSize" stdset="0">
+     <size>
+      <width>150</width>
+      <height>50</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="start_button">
+    <property name="geometry">
+     <rect>
+      <x>107</x>
+      <y>335</y>
+      <width>141</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>141</width>
+      <height>41</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #5cb85c; color: white;</string>
+    </property>
+    <property name="text">
+     <string>Start Monitoring</string>
+    </property>
+    <property name="fixedSize" stdset="0">
+     <size>
+      <width>150</width>
+      <height>50</height>
+     </size>
+    </property>
    </widget>
    <widget class="QPushButton" name="logout_button">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>290</y>
+      <x>533</x>
+      <y>335</y>
       <width>150</width>
-      <height>50</height>
+      <height>41</height>
      </rect>
     </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
+    <property name="maximumSize">
      <size>
       <width>150</width>
-      <height>50</height>
+      <height>41</height>
      </size>
     </property>
     <property name="styleSheet">
@@ -103,21 +97,165 @@
     <property name="text">
      <string>Logout</string>
     </property>
+    <property name="fixedSize" stdset="0">
+     <size>
+      <width>150</width>
+      <height>50</height>
+     </size>
+    </property>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView">
+   <widget class="QLabel" name="Employee_Id_label">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>40</y>
-      <width>256</width>
-      <height>200</height>
+      <x>30</x>
+      <y>150</y>
+      <width>161</width>
+      <height>20</height>
      </rect>
     </property>
-    <property name="minimumSize">
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Employee Id: [Employee Id]</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="name_label">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>150</y>
+      <width>171</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Name: [Employee Name]</string>
+    </property>
+   </widget>
+   <widget class="QCalendarWidget" name="calendar">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>20</y>
+      <width>351</width>
+      <height>201</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="fixedSize" stdset="0">
      <size>
       <width>200</width>
-      <height>200</height>
+      <height>150</height>
      </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="email_label">
+    <property name="geometry">
+     <rect>
+      <x>31</x>
+      <y>183</y>
+      <width>141</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Email: [Employee Email]</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="contact_label">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>180</y>
+      <width>140</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Contact: [Employee Contact]</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="address_label">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>225</y>
+      <width>142</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Address: [Employee Address]</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="joining_date_label">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>205</y>
+      <width>133</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Joining Date: [Joining Date]</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="dob_label">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>205</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Date of Birth: [DOB]</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="clock_label">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>250</y>
+      <width>187</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-size: 18px;</string>
+    </property>
+    <property name="text">
+     <string>Current Time: 00:00:00</string>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="image">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>20</y>
+      <width>121</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
    </widget>
   </widget>

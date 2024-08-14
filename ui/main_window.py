@@ -1,28 +1,24 @@
+from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QMessageBox, QDialog
+from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot, QTimer, QDateTime
 from PyQt5 import uic
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QDesktopWidget, QDialog, QGraphicsView, QGraphicsScene
-from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot, QTimer, Qt, QRectF, QTime, QPointF
-from PyQt5.QtGui import QPainter, QPen, QBrush, QPolygonF
 import logging
 import sys
 from monitoring.activity_monitor import ActivityMonitor  # Ensure this class is implemented correctly
 from ui.styles import dark_style  # Ensure dark_style is defined
 from .login_window import LoginWindow
 
+
 # Set up logging
 logging.basicConfig(filename='app.log', level=logging.ERROR, format='%(asctime)s %(levelname)s:%(message)s')
-
 
 def handle_exception(exc_type, exc_value, exc_traceback):
     if issubclass(exc_type, KeyboardInterrupt):
         sys.__excepthook__(exc_type, exc_value, exc_traceback)
         return
     logging.error("Uncaught exception", exc_info=(exc_type, exc_value, exc_traceback))
-    QMessageBox.critical(None, "An error occurred",
-                         "An unexpected error occurred. Please check the log file for details.")
-
+    QMessageBox.critical(None, "An error occurred", "An unexpected error occurred. Please check the log file for details.")
 
 sys.excepthook = handle_exception
-
 
 class MonitoringThread(QThread):
     stop_signal = pyqtSignal()
@@ -48,69 +44,13 @@ class MonitoringThread(QThread):
         self.monitor.stop()
         self._is_running = False
 
-
-class AnalogClock(QGraphicsView):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setScene(QGraphicsScene(self))
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.update)
-        self.timer.start(1000)
-
-    def drawBackground(self, painter, rect):
-        painter.setRenderHint(QPainter.Antialiasing)
-        painter.translate(self.width() / 2, self.height() / 2)
-        painter.scale(self.width() / 200.0, self.height() / 200.0)
-
-        # Draw clock background
-        painter.setBrush(QBrush(Qt.black))
-        painter.setPen(QPen(Qt.NoPen))
-        painter.drawEllipse(-100, -100, 200, 200)
-
-        # Draw hour markers
-        painter.setPen(QPen(Qt.white, 1))
-        for i in range(0, 12):
-            painter.drawLine(88, 0, 96, 0)
-            painter.rotate(30.0)
-
-        # Draw minute markers
-        painter.setPen(QPen(Qt.white, 0.5))
-        for i in range(0, 60):
-            if (i % 5) != 0:
-                painter.drawLine(92, 0, 96, 0)
-            painter.rotate(6.0)
-
-        # Get current time
-        time = QTime.currentTime()
-
-        # Draw hour hand
-        painter.setPen(Qt.NoPen)
-        painter.setBrush(QBrush(Qt.white))
-        painter.save()
-        painter.rotate(30.0 * (time.hour() + time.minute() / 60.0))
-        painter.drawPolygon(QPolygonF([QPointF(0, 7), QPointF(-7, 0), QPointF(0, -50), QPointF(7, 0)]))
-        painter.restore()
-
-        # Draw minute hand
-        painter.setBrush(QBrush(Qt.white))
-        painter.save()
-        painter.rotate(6.0 * (time.minute() + time.second() / 60.0))
-        painter.drawPolygon(QPolygonF([QPointF(0, 7), QPointF(-7, 0), QPointF(0, -70), QPointF(7, 0)]))
-        painter.restore()
-
-        # Draw second hand
-        painter.setPen(Qt.NoPen)
-        painter.setBrush(QBrush(Qt.red))
-        painter.save()
-        painter.rotate(6.0 * time.second())
-        painter.drawPolygon(QPolygonF([QPointF(0, 1), QPointF(-1, 0), QPointF(0, -90), QPointF(1, 0)]))
-        painter.restore()
-
-
 class MainWindow(QMainWindow):
-    def __init__(self, employee_id):
+    def __init__(self, employee_id, employee_details):
         super().__init__()
-        uic.loadUi('ui/main_window.ui', self)
+        self.employee_details = employee_details
+        uic.loadUi('ui/main_window.ui', self)  # Load the updated .ui file
+
+
         self.setWindowTitle("Activity Monitor")
         self.setStyleSheet(dark_style)
         self.center()
@@ -118,21 +58,37 @@ class MainWindow(QMainWindow):
         self.monitor = ActivityMonitor(employee_id)
         self.monitoring_thread = None
 
+        # Display employee details
+        self.update_employee_details()
+
+        # Set up and start the clock
+        self.update_clock()
+        self.start_clock()
+
+        # Connect buttons to methods
         self.start_button.clicked.connect(self.start_monitoring)
         self.stop_button.clicked.connect(self.stop_monitoring)
         self.logout_button.clicked.connect(self.logout)
 
-        # Add the analog clock to the graphics view
-        self.clock = AnalogClock(self.graphicsView)
-        self.graphicsView.setScene(self.clock.scene())
+    def update_employee_details(self):
+        # Update the labels with employee details
+        self.Employee_Id_label.setText(f"Employee Id: {self.employee_details.get('userId', 'N/A')}")
+        self.name_label.setText(f"Name: {self.employee_details.get('name', 'N/A')}")
+        self.email_label.setText(f"Email: {self.employee_details.get('email', 'N/A')}")
+        self.contact_label.setText(f"Contact: {self.employee_details.get('contact', 'N/A')}")
+        self.address_label.setText(f"Address: {self.employee_details.get('address', 'N/A')}")
+        self.joining_date_label.setText(f"Joining Date: {self.employee_details.get('joinDate', 'N/A')}")
+        self.dob_label.setText(f"DOB: {self.employee_details.get('dob', 'N/A')}")
 
-    def show_alert(self, message, title="Alert"):
-        msg_box = QMessageBox()
-        msg_box.setIcon(QMessageBox.Information)
-        msg_box.setText(message)
-        msg_box.setWindowTitle(title)
-        msg_box.setStandardButtons(QMessageBox.Ok)
-        msg_box.exec_()
+    def update_clock(self):
+        current_time = QDateTime.currentDateTime().toString("hh:mm:ss")
+        self.clock_label.setText(f"Current Time: {current_time}")
+
+    def start_clock(self):
+        # Start the QTimer to update the clock every second
+        timer = QTimer(self)
+        timer.timeout.connect(self.update_clock)
+        timer.start(1000)  # Update every second
 
     def start_monitoring(self):
         if not self.monitoring_thread or not self.monitoring_thread.isRunning():
@@ -158,21 +114,19 @@ class MainWindow(QMainWindow):
 
     def logout(self):
         try:
-            self.stop_monitoring()
-            # Stop monitoring before logging out
-
+            self.stop_monitoring()  # Stop monitoring before logging out
         except Exception as e:
             logging.error("Error during logout", exc_info=True)
+        logging.info('Logging out...')
         self.show_alert("You've been logged out!", "Logged Out")
         self.close()  # Close the main window
         self.show_login_window()
 
     def show_login_window(self):
-        employee_id = None
         login_window = LoginWindow()
         if login_window.exec_() == QDialog.Accepted:
             employee_id = login_window.get_employee_id()
-            self.__init__(employee_id)  # Reinitialize MainWindow with the new employee ID
+            self.__init__(employee_id, self.employee_details)  # Reinitialize MainWindow with the new employee ID
             self.show()
 
     def center(self):
@@ -185,3 +139,9 @@ class MainWindow(QMainWindow):
         if self.monitoring_thread and self.monitoring_thread.isRunning():
             self.stop_monitoring()
         event.accept()
+
+    def show_alert(self, message, title):
+        QMessageBox.information(self, title, message)
+
+
+
