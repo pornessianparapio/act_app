@@ -57,8 +57,10 @@ if __name__ == '__main__':
     # report=generate_report()
     generate_report()
     report=csv_to_binary_blob('report.csv')
-    print(type(report))
-
+    output={
+        "Report":report
+    }
+    print(output)
     # print(f'report blob {report}')
 
 
