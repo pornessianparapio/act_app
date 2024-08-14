@@ -3,8 +3,8 @@ from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot, QTimer, QDateTime
 from PyQt5 import uic
 import logging
 import sys
-from monitoring.activity_monitor import ActivityMonitor  # Ensure this class is implemented correctly
-from ui.styles import dark_style  # Ensure dark_style is defined
+from monitoring.activity_monitor import ActivityMonitor
+from ui.styles import dark_style
 from .login_window import LoginWindow
 
 
@@ -85,7 +85,7 @@ class MainWindow(QMainWindow):
         self.clock_label.setText(f"Current Time: {current_time}")
 
     def start_clock(self):
-        # Start the QTimer to update the clock every second
+        #update time clock 
         timer = QTimer(self)
         timer.timeout.connect(self.update_clock)
         timer.start(1000)  # Update every second

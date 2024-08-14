@@ -8,8 +8,7 @@ if __name__ == "__main__":
 
     try:
         login = LoginWindow()
-        # print(login.exec_())
-        # login.show()
+
         if login.exec_() == QDialog.Accepted:
 
             employee_id = login.get_employee_id()
