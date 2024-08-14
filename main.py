@@ -8,11 +8,18 @@ if __name__ == "__main__":
 
     try:
         login = LoginWindow()
+        # print(login.exec_())
+        # login.show()
         if login.exec_() == QDialog.Accepted:
+
             employee_id = login.get_employee_id()
+            employee_details = login.get_employee_details()
             print(employee_id)
-            window = MainWindow(employee_id)
-            window.show()
+            try:
+                window = MainWindow(employee_id, employee_details)
+                window.show()
+            except Exception as e:
+                print(f'couldnt open main window cuz: {e}')
     except Exception as e:
         print(f'couldnt open login window cuz: {e}')
     try:

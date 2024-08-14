@@ -1,51 +1,39 @@
-import os
-import sqlite3
+from peewee import *
+import logging
 
 
-# Function to create the local database
-def create_local_database():
-    db_path = os.path.join("activity_monitor.db")
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
+logging.basicConfig(filename='db.log', level=logging.ERROR, format='%(asctime)s %(levelname)s:%(message)s')
+db = SqliteDatabase('activity_monitor.db')
 
 
-    # Create User table
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS User (
-            email TEXT PRIMARY KEY,
-            password TEXT NOT NULL,
-            employee_id TEXT NOT NULL
-        )
-    ''')
+class BaseModel(Model):
+    class Meta:
+        database = db
 
-    # Create Time_entry table
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS TimeEntry (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            first_start_time TEXT NOT NULL,
-            start_time TEXT NOT NULL,
-            end_time TEXT NOT NULL,
-            final_end_time TEXT NOT NULL,
-            minutes INTEGER NOT NULL
-        )
-    ''')
+class User(BaseModel):
+    email = CharField(unique=True)
+    password = CharField()
+    employee_id = CharField(unique=True)
 
-    # Create Activity table
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS Activity (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            activity_name TEXT NOT NULL,
-            employee_id TEXT NOT NULL,
-            app_name TEXT NOT NULL,
-            no_of_times_app_opened INTEGER NOT NULL,
-            ip_address TEXT NOT NULL,
-            TimeEntry_id INTEGER NOT NULL,
-            FOREIGN KEY (TimeEntry_id) REFERENCES TimeEntry (id)
-        )
-    ''')
+class TimeEntry(BaseModel):
+    first_start_time = DateTimeField(default=0)
+    start_time = DateTimeField(default=0)
+    end_time = DateTimeField(default=0)
+    final_end_time = DateTimeField(default=0)
+    minutes = FloatField(default=0)
+    # user = ForeignKeyField(User, backref='time_entries')
 
-    conn.commit()
-    conn.close()
+class Activity(BaseModel):
+    employee_id = CharField()
+    activity_name = CharField()
+    app_name = CharField()
+    no_of_times_app_opened = IntegerField(default=0)
+    ip_address = CharField()
+    time_entry = ForeignKeyField(TimeEntry, backref='activities')
 
-if __name__ == "__main__":
-    create_local_database()
+def initialize_db():
+    with db:
+        db.create_tables([User, Activity, TimeEntry])
+
+if __name__ == '__main__':
+    initialize_db()

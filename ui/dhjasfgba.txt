@@ -1,0 +1,41 @@
+understand the following code and follow the instructions given below.
+```
+from init_db import db, TimeEntry, Activity, User
+from datetime import datetime
+import pandas as pd
+import json
+def generate_report():
+    # Querying the database
+    db.connect()
+    query = (Activity
+             .select(Activity.activity_name, Activity.app_name, TimeEntry.minutes)
+             .join(TimeEntry)
+             )
+    print(query)
+
+    # Converting the query result to pandas DataFrame
+    df = pd.DataFrame(list(query.dicts()))
+
+    # print(df)
+
+    # 1. Top 5 app_name based on the minutes
+    top_5_apps = df.groupby('app_name')['minutes'].sum().sort_values(ascending=False).head(5)
+
+
+    # Creating the report
+    report = {
+        "Top 5 Apps by Usage Time": top_5_apps.to_dict()
+        
+    }
+    # df2=pd.DataFrame(report)
+    # df2.to_csv('report.csv')
+
+    return report
+```
+
+Instructions:
+!. Write a function to convevert the report generated to three tables saved in csv format 
+2. write a function to convert this csv data to blob to be sent over an POST api
+3. Write a function to fetch a blob file from the API and append the updates of each day to that file and save back again!!
+4. schedule the task to happen everyday
+5. write a function to truncate the db after file after the blob file has been updated
