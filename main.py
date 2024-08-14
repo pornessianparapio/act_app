@@ -24,5 +24,5 @@ if __name__ == "__main__":
         print(f'couldnt open login window cuz: {e}')
     try:
         sys.exit(app.exec_())
-    except Exception as e:
-        print(f'thrown after in the end {e}')
+    except Exception as error:
+        print(f'thrown after in the end {error}')
