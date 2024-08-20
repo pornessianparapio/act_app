@@ -1,12 +1,11 @@
-from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QMessageBox, QDialog
-from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot, QTimer, QDateTime
+from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QMessageBox, QDialog, QWidget
+from PyQt5.QtCore import QThread, pyqtSignal, pyqtSlot, QTimer, QDateTime, QEvent, Qt
 from PyQt5 import uic
 import logging
 import sys
 from monitoring.activity_monitor import ActivityMonitor  # Ensure this class is implemented correctly
 from ui.styles import dark_style  # Ensure dark_style is defined
 from .login_window import LoginWindow
-
 
 # Set up logging
 logging.basicConfig(filename='app.log', level=logging.ERROR, format='%(asctime)s %(levelname)s:%(message)s')
@@ -58,6 +57,9 @@ class MainWindow(QMainWindow):
         self.monitor = ActivityMonitor(employee_id)
         self.monitoring_thread = None
 
+        # Disable all widgets from receiving keyboard focus
+        self.disable_keyboard_interaction(self)
+
         # Display employee details
         self.update_employee_details()
 
@@ -69,6 +71,13 @@ class MainWindow(QMainWindow):
         self.start_button.clicked.connect(self.start_monitoring)
         self.stop_button.clicked.connect(self.stop_monitoring)
         self.logout_button.clicked.connect(self.logout)
+
+        # # Install event filter to capture all events
+        # self.installEventFilter(self)
+
+    def disable_keyboard_interaction(self, widget):
+        for child in widget.findChildren(QWidget):
+            child.setFocusPolicy(Qt.NoFocus)
 
     def update_employee_details(self):
         # Update the labels with employee details
@@ -142,6 +151,7 @@ class MainWindow(QMainWindow):
 
     def show_alert(self, message, title):
         QMessageBox.information(self, title, message)
+
 
 
 

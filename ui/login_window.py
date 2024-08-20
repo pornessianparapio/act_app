@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QLineEdit, QPushButton
 from utils.api import login_api
 from ui.styles import dark_style
 from PyQt5 import uic
+from PyQt5.QtCore import QEvent, Qt
 # from ui.main_window import MainWindow
 import sqlite3
 class LoginWindow(QDialog):
@@ -19,10 +20,11 @@ class LoginWindow(QDialog):
 
         self.login_button.clicked.connect(self.login)
 
+        # self.email_input.setFocusPolicy(Qt.NoFocus)
+        # self.password_input.setFocusPolicy(Qt.NoFocus)
+
         self.employee_id = None
         self.employee_details=None
-
-
 
     # def validate_password_length(self):
     #         if len(self.password_input.text()) > 8:
