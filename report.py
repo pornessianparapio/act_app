@@ -2,6 +2,15 @@ from init_db import db, TimeEntry, Activity, User
 from datetime import datetime
 import pandas as pd
 import json
+import os
+
+
+import vercel_blob
+#or
+# import vercel_blob.blob_store
+# or if you want to use an alias
+import vercel_blob.blob_store as vb_store
+
 def generate_report():
     # Querying the database
     db.connect()
@@ -48,20 +57,29 @@ def generate_report():
     return report
 
 
+def list_all_blobs():
+    blobs = vercel_blob.list({
+        'limit': '5',
+    })
 def csv_to_binary_blob(file_path):
     with open(file_path, 'rb') as f:
         binary_blob = f.read()
     return binary_blob
+def download_a_file_on_the_server(blob_url):
+    vercel_blob.download_file(blob_url, 'path/to/directory/')
 
 if __name__ == '__main__':
-    # report=generate_report()
-    generate_report()
-    report=csv_to_binary_blob('report.csv')
-    output={
-        "Report":report
-    }
-    print(output)
-    # print(f'report blob {report}')
+    # # report=generate_report()
+    # generate_report()
+    # report=csv_to_binary_blob('report.csv')
+    # output={
+    #     "Report":report
+    # }
+    # print(output)
+    # print(os.environ)
+    print(list_all_blobs())
+    # vercel_blob.download_file(‘https://bzysnyfgxvzogl52.public.blob.vercel-storage.com/employee-data/app-CXrjlFbPXgsUGVc0nUxZNjsv6VKLv0.log’, ‘act_app’)
+
 
 
 

@@ -107,8 +107,8 @@
    <widget class="QLabel" name="Employee_Id_label">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>150</y>
+      <x>20</x>
+      <y>185</y>
       <width>161</width>
       <height>20</height>
      </rect>
@@ -126,8 +126,8 @@
    <widget class="QLabel" name="name_label">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>150</y>
+      <x>210</x>
+      <y>185</y>
       <width>171</width>
       <height>21</height>
      </rect>
@@ -167,8 +167,8 @@
    <widget class="QLabel" name="email_label">
     <property name="geometry">
      <rect>
-      <x>31</x>
-      <y>183</y>
+      <x>21</x>
+      <y>218</y>
       <width>141</width>
       <height>16</height>
      </rect>
@@ -180,8 +180,8 @@
    <widget class="QLabel" name="contact_label">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>180</y>
+      <x>210</x>
+      <y>215</y>
       <width>140</width>
       <height>21</height>
      </rect>
@@ -193,8 +193,8 @@
    <widget class="QLabel" name="address_label">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>225</y>
+      <x>20</x>
+      <y>270</y>
       <width>142</width>
       <height>41</height>
      </rect>
@@ -206,8 +206,8 @@
    <widget class="QLabel" name="joining_date_label">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>205</y>
+      <x>210</x>
+      <y>240</y>
       <width>133</width>
       <height>31</height>
      </rect>
@@ -219,8 +219,8 @@
    <widget class="QLabel" name="dob_label">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>205</y>
+      <x>20</x>
+      <y>240</y>
       <width>141</width>
       <height>31</height>
      </rect>
@@ -232,7 +232,7 @@
    <widget class="QLabel" name="clock_label">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>500</x>
       <y>250</y>
       <width>187</width>
       <height>22</height>
@@ -248,8 +248,8 @@
    <widget class="QGraphicsView" name="image">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>20</y>
+      <x>20</x>
+      <y>40</y>
       <width>121</width>
       <height>121</height>
      </rect>
