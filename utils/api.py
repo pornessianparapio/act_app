@@ -13,13 +13,9 @@ def login_api(email, password):
             return {"success": False}
     return {"success": False}
 
-
 if __name__ == "__main__":
     email = input('Enter email: ')
     password = input('Enter password: ')
     print(login_api(email, password))
-
-
-
 
 

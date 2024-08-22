@@ -34,8 +34,8 @@ def generate_report():
 ```
 
 Instructions:
-!. Write a function to convevert the report generated to three tables saved in csv format 
+!. Write a function to convert the report generated to three tables saved in csv format
 2. write a function to convert this csv data to blob to be sent over an POST api
 3. Write a function to fetch a blob file from the API and append the updates of each day to that file and save back again!!
-4. schedule the task to happen everyday
+4. schedule the task to happen Everyday
 5. write a function to truncate the db after file after the blob file has been updated
