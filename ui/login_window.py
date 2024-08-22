@@ -20,9 +20,6 @@ class LoginWindow(QDialog):
 
         self.login_button.clicked.connect(self.login)
 
-        # self.email_input.setFocusPolicy(Qt.NoFocus)
-        # self.password_input.setFocusPolicy(Qt.NoFocus)
-
         self.employee_id = None
         self.employee_details=None
 

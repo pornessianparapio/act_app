@@ -72,9 +72,6 @@ class MainWindow(QMainWindow):
         self.stop_button.clicked.connect(self.stop_monitoring)
         self.logout_button.clicked.connect(self.logout)
 
-        # # Install event filter to capture all events
-        # self.installEventFilter(self)
-
     def disable_keyboard_interaction(self, widget):
         for child in widget.findChildren(QWidget):
             child.setFocusPolicy(Qt.NoFocus)

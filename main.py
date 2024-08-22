@@ -26,3 +26,4 @@ if __name__ == "__main__":
         sys.exit(app.exec_())
     except Exception as error:
         print(f'thrown after in the end {error}')
+        
